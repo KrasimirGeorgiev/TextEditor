@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using TextEditor.Models;
 
 namespace TextEditor.Data
 {
@@ -9,5 +10,7 @@ namespace TextEditor.Data
             : base(options)
         {
         }
+
+        public DbSet<Document> Documents { get; set; }
     }
 }
