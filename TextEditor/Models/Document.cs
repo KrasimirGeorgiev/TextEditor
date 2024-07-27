@@ -14,7 +14,7 @@ namespace TextEditor.Models
         [Required]
         public string UserId { get; set; }
 
-        [ForeignKey(nameof(User))]
+        [ForeignKey(nameof(UserId))]
         public IdentityUser User { get; set; }
     }
 }
