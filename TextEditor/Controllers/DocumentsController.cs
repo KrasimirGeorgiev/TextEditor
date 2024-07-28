@@ -25,8 +25,12 @@ namespace TextEditor.Controllers
         // GET: Documents
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Documents.Include(d => d.User);
-            return View(await applicationDbContext.ToListAsync());
+            var documentsFilteredByUserQ = _context
+                .Documents
+                .Where(d => d.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .Include(d => d.User);
+
+            return View(await documentsFilteredByUserQ.ToListAsync());
         }
 
         // GET: Documents/Create
@@ -48,7 +52,7 @@ namespace TextEditor.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", document.UserId);
+
             return View(document);
         }
 
